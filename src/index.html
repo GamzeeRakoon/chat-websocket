@@ -17,52 +17,40 @@
         <div class="display">
           <div class="artboard artboard-demo phone-1">
             <div class="flex flex-col justify-between h-full shadow-xl card card-bordered bg-primary">
-                <div>
-
-                    <div class="pt-10 mb-5 bg-base-200">
-                        <input 
-                        type="text" 
-                        id="name-input"
-                        placeholder="Username"
-                        value="anonymous"
-                        maxlength="20"
-                        class="w-full text-center input"
-                        >
-                    </div>
+                <div class="pt-10 bg-base-200">
+                    <input 
+                    type="text" 
+                    id="name-input"
+                    placeholder="Username"
+                    value="anonymous"
+                    maxlength="20"
+                    class="w-full text-center input"
+                    >
+                </div>
+                <div class="flex overflow-scroll flex-col justify-between h-full">
 
                     <ul id="message-container">
-                        <li class="chat chat-start">
-                            <p class="chat-bubble">
-                                It's over Anakin, <br >I have the high ground.
-                                <span class="text-xs italic"><br >Obi-wan * 26 july 10:39</span>
-                            </p>
-                        </li>
 
-                        <li class="chat chat-end">
-                            <p class="chat-bubble">
-                                You underestimate my power!
-                                <span class="text-xs italic">Anakin * 26 july 10:40</span>
-                            </p>
-                        </li>
                     </ul>
 
                 </div>
-
-                <form class="flex justify-center join" id="message-form">
-                    <input
+                <div>
+                    <form class="flex justify-center join" id="message-form">
+                        <input
                         id="message-input"
                         type="text" 
                         class="input input-bordered join-item" 
                         placeholder="..."
-                    >
-                    <button type="submit" class="rounded-r-xl btn join-item">Send</button>
-                </form>
+                        >
+                        <button type="submit" class="rounded-r-xl btn join-item">Send</button>
+                    </form>
+                </div>
             </div>
           </div>
         </div>
     </div>
 
-    <h3 class="clients-total" id="clients-total">total clients: 2</h3>
+    <h3 class="clients-total" id="clients-total">Total clients: 1</h3>
     <script src="/socket.io/socket.io.js"></script>
 </body>
 
