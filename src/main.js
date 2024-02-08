@@ -26,9 +26,30 @@ const sendMessage = () => {
         message: messageInput.value,
         dateTime: new Date()
     }
-    socket.emit('message', data)
+    socket.emit('message', data);
+    addMessageToUI(true, data);
+    messageInput.value = '';
 }
 
 socket.on('chat-message', (data) => {
-    console.log(data)
+    console.log(data);
+    addMessageToUI(false, data);
 });
+
+function formatDateTime(dateTime) {
+    const options = {month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false };
+    return new Intl.DateTimeFormat('en-US', options).format(new Date(dateTime));
+}
+
+const addMessageToUI = (isOwnMessage, data) => {
+    const formattedDateTime = formatDateTime(data.dateTime);
+    const element = `
+                    <li class="chat ${isOwnMessage ? 'chat-end' : 'chat-start'}">
+                        <p class="chat-bubble">
+                            ${data.message}
+                            <span class="text-xs italic"><br >${data.name} * ${formattedDateTime}</span>
+                        </p>
+                    </li>
+                    `
+    messageContainer.innerHTML += element
+}
