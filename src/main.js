@@ -5,6 +5,7 @@ const socket = io();
 const clientsTotal = document.getElementById("clients-total");
 
 const messageContainer = document.getElementById("message-container");
+const messageItems = document.getElementById("message-items");
 const nameInput = document.getElementById("name-input");
 const mesasgeForm = document.getElementById("message-form");
 const messageInput = document.getElementById("message-input");
@@ -41,6 +42,10 @@ function formatDateTime(dateTime) {
     return new Intl.DateTimeFormat('en-US', options).format(new Date(dateTime));
 }
 
+const scrollToBottom = () => {
+    messageContainer.scrollTop = messageContainer.scrollHeight;
+}
+
 const addMessageToUI = (isOwnMessage, data) => {
     const formattedDateTime = formatDateTime(data.dateTime);
     const element = `
@@ -51,5 +56,6 @@ const addMessageToUI = (isOwnMessage, data) => {
                         </p>
                     </li>
                     `
-    messageContainer.innerHTML += element
+    messageItems.innerHTML += element
+    scrollToBottom()
 }
