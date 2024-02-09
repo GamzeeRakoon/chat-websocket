@@ -10,6 +10,22 @@ const nameInput = document.getElementById("name-input");
 const mesasgeForm = document.getElementById("message-form");
 const messageInput = document.getElementById("message-input");
 
+const clearFeedback = () => {
+    const messageList = document.getElementById('message-items');
+
+    // Check if the ul element with id 'message-items' exists
+    if (messageList) {
+        console.log('we\'re in');
+        const feedbackItems = messageList.querySelectorAll('.message-feedback');
+        console.log(feedbackItems);
+
+        feedbackItems.forEach(feedbackItem => {
+            console.log('Removing element:', feedbackItem);
+            feedbackItem.remove();
+        });
+    }
+};
+
 mesasgeForm.addEventListener('submit', (e) => {
     e.preventDefault()
     sendMessage()
@@ -47,6 +63,7 @@ const scrollToBottom = () => {
 }
 
 const addMessageToUI = (isOwnMessage, data) => {
+    clearFeedback()
     const formattedDateTime = formatDateTime(data.dateTime);
     const element = `
                     <li class="chat ${isOwnMessage ? 'chat-end' : 'chat-start'}">
@@ -59,3 +76,34 @@ const addMessageToUI = (isOwnMessage, data) => {
     messageItems.innerHTML += element
     scrollToBottom()
 }
+
+messageInput.addEventListener('focus', (e) => {
+    socket.emit('feedback', {
+        feedback: `${nameInput.value} is typing a message...`
+    })
+})
+
+messageInput.addEventListener('keypress', (e) => {
+    socket.emit('feedback', {
+        feedback: `${nameInput.value} is typing a message...`
+    })
+})
+
+messageInput.addEventListener('blur', (e) => {
+    socket.emit('feedback', {
+        feedback: ``
+    })
+})
+
+
+socket.on('feedback', (data) => {
+    clearFeedback()
+    const element = `
+                    <li class="message-feedback">
+                        <p id="feedback" class="indicator-item badge badge-secondary">
+                            ${data.feedback}
+                        </p>
+                    </li>
+                    `
+    messageItems.innerHTML += element
+})
