@@ -19,7 +19,7 @@ socket.on('clients-total', (data) => {
 });
 
 const sendMessage = () => {
-    console.log(messageInput.value)
+    if (messageInput.value == '') return
 
     const data = {
         name: nameInput.value,
